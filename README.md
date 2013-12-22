@@ -1,5 +1,5 @@
-Backbone.IO
-===========
+Backbone.IO modified
+====================
 
 Backend-agnostic Backbone.js sync override and server notifications via Socket.IO.
 This version is exactly the same as the one at http://scttnlsn.github.io/backbone.io with some minor modifications:
