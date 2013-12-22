@@ -2,6 +2,10 @@ Backbone.IO
 ===========
 
 Backend-agnostic Backbone.js sync override and server notifications via Socket.IO.
+This version is exactly the same as the one at http://scttnlsn.github.io/backbone.io with some minor modifications:
+* the client can dynamically change the socket channel from the collection object
+* events emitted on server side can target one particular channel
+* new middleware to use an external database manager which is not only used by backbone.io backend
 
 Install
 -------
