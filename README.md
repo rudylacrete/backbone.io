@@ -164,6 +164,12 @@ For example:
     backend.emit('updated', { id: 'myid', foo: 'baz' });
     backend.emit('deleted', { id: 'myid' });
 
+It's now possible to emit only on a specific channel:
+
+    backend.emit('deleted', 'my_channel',{ id: 'myid' });
+
+If no channel is specified, only clients connected without having specified a channel will receive the event
+
 Channels
 --------
 
@@ -176,8 +182,13 @@ specify a channel.
         
     });
 
-Only clients sharing the same channel will receive updates from each other.  The channel
-associated with a given request is available from any middleware in `req.channel`.
+Only clients sharing the same channel will receive updates from each other and from the server if it emits on the same channel.  The channel associated with a given request is available from any middleware in `req.channel`.
+
+It's also possible to change the channel whenever you want.
+
+    MyCollection.changeChannel('myNewChannel',function(){
+        console.log("channel has been changed");
+    });
     
 Customizing
 -----------
@@ -185,6 +196,16 @@ Customizing
 In addition to middleware, the behavior of Backbone.IO can be customized via standard Socket.IO
 mechanisms.  The object returned from the call to `listen` is the Socket.IO object and can be
 manipulated further.  See http://socket.io for more details.
+
+ownStore middleware
+-------------------
+
+This middleware is used as a datastore and allow you to connect the backend storage with an external database manager.
+
+    backend.use(backboneio.middleware.ownStore(_recordManager))
+
+All data used by the backend will be available anywhere through your `_recordManager`.
+Using the right logic into the ownStore middleware is then your business.
 
 Tests
 -----
